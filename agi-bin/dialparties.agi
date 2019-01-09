@@ -80,7 +80,7 @@ if ($alertinfo) {
 	debug("Setting Alert-Info:  $alertinfo", 4);
 	$headers['Alert-Info'] = $alertinfo;
 	if($rvol !=""){
-		$AGI->set_alertinfo($alertinfo.'\;volume='.$rvol);
+		$AGI->set_alertinfo('<http://127.0.0.1>\;info='.$alertinfo.'\;volume='.$rvol);
 	} else {
 		$AGI->set_alertinfo($alertinfo);
 	}
