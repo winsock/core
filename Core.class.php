@@ -1943,7 +1943,7 @@ class Core extends \FreePBX_Helpers implements \BMO  {
 	*/
 	function listUsers($get_all=false) {
 		if (empty($this->listUsersCache)) {
-			$sql = 'SELECT extension,name,voicemail FROM users ORDER BY extension';
+			$sql = 'SELECT extension,name,voicemail,tech FROM users LEFT JOIN devices ON users.extension = devices.id ORDER BY extension';
 			$sth = $this->database->prepare($sql);
 			$sth->execute();
 			$results = $sth->fetchAll(\PDO::FETCH_BOTH);
@@ -1955,7 +1955,7 @@ class Core extends \FreePBX_Helpers implements \BMO  {
 		//only allow extensions that are within administrator's allowed range
 		foreach($results as $result){
 			if ($get_all || \checkRange($result[0])){
-				$extens[] = array($result[0],$result[1],$result[2]);
+				$extens[] = array($result[0],$result[1],$result[2],$result[3]);
 			}
 		}
 

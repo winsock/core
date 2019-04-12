@@ -1645,7 +1645,10 @@ function core_do_get_config($engine) {
 				$vm = ((($exten['voicemail'] == "novm") || ($exten['voicemail'] == "disabled") || ($exten['voicemail'] == "")) ? "novm" : $exten['extension']);
 
 				$ext->add('ext-local', $exten['extension'], '', new ext_set('__RINGTIMER', '${IF($["${DB(AMPUSER/'.$exten['extension'].'/ringtimer)}" > "0"]?${DB(AMPUSER/'.$exten['extension'].'/ringtimer)}:${RINGTIMER_DEFAULT})}'));
-
+				////FREEPBX-19451 Wrong CallerID Sent on Calls from Custom Extensions
+				if ($item[3] == 'custom') {
+					$ext->add('ext-local', $exten['extension'], '', new ext_set('CUSTOMEXT',$exten['extension']));
+				}
 				$dest_args = ','.($exten['noanswer_dest']==''?'0':'1').','.($exten['busy_dest']==''?'0':'1').','.($exten['chanunavail_dest']==''?'0':'1');
 				$ext->add('ext-local', $exten['extension'], '', new ext_macro('exten-vm',$vm.",".$exten['extension'].$dest_args));
 				$ext->add('ext-local', $exten['extension'], 'dest', new ext_set('__PICKUPMARK',''));
