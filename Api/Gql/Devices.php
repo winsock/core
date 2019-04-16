@@ -167,6 +167,10 @@ class Devices extends Base {
 						return isset($item) ? $item : null;
 					}
 				],
+				'context' => [
+                                        'type' => Type::string(),
+                                        'description' => 'The context this device belongs to.'
+                                ],
 				'description' => [
 					'type' => Type::string(),
 					'description' => 'The CallerID name for this device will be set to this description until it is logged into.'
@@ -227,6 +231,10 @@ class Devices extends Base {
 				'type' => Type::string(),
 				'description' => 'Fixed devices will always mapped to this user. Adhoc devices will be mapped to this user by default.'
 			],
+			'context' => [
+				'type' => Type::string(),
+				'description' => 'The context the device belongs to.'
+			],
 			'description' => [
 				'type' => Type::string(),
 				'description' => 'The CallerID name for this device will be set to this description until it is logged into.'
@@ -246,6 +254,7 @@ class Devices extends Base {
 			"dial" => isset($input['dial']) ? $input['dial'] : '',
 			"devicetype" => isset($input['devicetype']) ? $input['devicetype'] : '',
 			"user" => isset($input['user']) ? $input['user'] : null,
+			"context" => isset($input['context']) ? $input['context'] : 'from-internal',
 			"description" => isset($input['description']) ? $input['description'] : null,
 			"emergency_cid" => isset($input['emergency_cid']) ? $input['emergency_cid'] : null,
 		];
